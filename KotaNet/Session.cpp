@@ -1,8 +1,10 @@
 ﻿#include "Session.h"
-
+#include "NetAPI.h"
 
 namespace Kota
 {
+    NetAPI netApi;
+
     Session::Session()
         :   _socket( INVALID_SOCKET )
     {
@@ -79,11 +81,14 @@ namespace Kota
     bool Session::Connect()
     {
         // 구현 필요
-        return false;
+        return true;
     }
 
     bool Session::Disconnect()
     {   
+        NetAPI::
+
+        return true;
     }
 
     bool Session::Send( std::tuple<char*, ULONG, ULONG>& buff )
@@ -141,11 +146,9 @@ namespace Kota
             return INVALID_SOCKET;
         }
 
-        u_long enableNonBlocking = 1;
-        ioctlsocket( socket, FIONBIO, &enableNonBlocking );
-
-        int noDelay = 1;
-        ::setsockopt( socket, IPPROTO_TCP, TCP_NODELAY, std::to_string( noDelay ).c_str(), sizeof( noDelay ) );
+        NetAPI::NonBlocking( socket, TRUE );
+        NetAPI::NoDelay( socket, TRUE );
+        NetAPI::ReuseAddr( socket, TRUE );
 
         return socket;
     }

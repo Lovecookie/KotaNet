@@ -3,19 +3,19 @@
 
 namespace Kota
 {
-    void Console::Output( std::string& str )
+    /*void Console::Output( const char* str )
     {
         std::cout << str << std::endl;
-    }    
+    }*/
 
-    void Console::Output( const char* str )
+    void Console::Output( std::string& str )
     {
         std::cout << str << std::endl;
     }
 
     void Console::Output( const wchar_t* str )
     {
-        std::cout << str << str::endl;
+        std::cout << str << std::endl;
     }
 
 }

@@ -49,8 +49,9 @@ namespace Kota
         bool _OnDisconnect( const DWORD bytesTransferred );
 
     protected:
-        SOCKET _socket = INVALID_SOCKET;
-        IPEndPoint _endPoint;
+        SOCKET _socket = INVALID_SOCKET;        
+        IPEndPoint _remoteEndPoint;
+        IPEndPoint _localEndPoint;
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         std::array<char, 64> _addrBuff;
         std::array<char, 1024> _recvBuff;
