@@ -36,6 +36,7 @@ namespace Kota
         bool Create();
         void Close();
         bool Connect();
+        bool Disconnect();
         bool Send( std::tuple<char*, ULONG, ULONG>& buff );
         bool Recv( char* buf, ULONG len );
 

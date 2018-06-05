@@ -82,6 +82,10 @@ namespace Kota
         return false;
     }
 
+    bool Session::Disconnect()
+    {   
+    }
+
     bool Session::Send( std::tuple<char*, ULONG, ULONG>& buff )
     {
         if( _sendQueue.empty() )
@@ -148,21 +152,19 @@ namespace Kota
 
     bool Session::_OnAccept( const DWORD bytesTransferred )
     {
-        SOCKADDR_IN* remoteAddr = nullptr;
-        SOCKADDR_IN* localAddr = nullptr;
+        PSOCKADDR remoteAddr = nullptr;
+        PSOCKADDR localAddr = nullptr;
 
         int localLength = sizeof( SOCKADDR_IN );
         int remoteLength = sizeof( SOCKADDR_IN );
 
-        GetAcceptExSockaddrs( _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, reinterpret_cast<SOCKADDR**>(&localAddr), &localLength,
-                              reinterpret_cast<SOCKADDR**>(&remoteAddr), &remoteLength );
+        GetAcceptExSockaddrs( _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, &localAddr, &localLength,
+                              &remoteAddr, &remoteLength );
         
         if( !Recv( nullptr, 0 ) )
         {
             return false;
-        }
-
-        _isZeroByte = true;
+        }       
 
         return true;
     }

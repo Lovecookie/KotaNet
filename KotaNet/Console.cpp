@@ -1,0 +1,21 @@
+﻿#include "Console.h"
+#include <iostream>
+
+namespace Kota
+{
+    void Console::Output( std::string& str )
+    {
+        std::cout << str << std::endl;
+    }    
+
+    void Console::Output( const char* str )
+    {
+        std::cout << str << std::endl;
+    }
+
+    void Console::Output( const wchar_t* str )
+    {
+        std::cout << str << str::endl;
+    }
+
+}
