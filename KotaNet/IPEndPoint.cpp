@@ -1,51 +1,76 @@
 ﻿#include "IPEndPoint.h"
-
+#include "Console.h"
 
 namespace Kota
 {
     IPEndPoint::IPEndPoint()
-        :   _ip(""),
+        :   _ip("127.0.0.1"),
             _port(0)
-    {   
-        //_Create( AF_INET, _ip, _port );
+    {
+        ::memset( &_sockAddr, 0, sizeof( SOCKADDR_IN ) );
+    }
+
+    IPEndPoint::IPEndPoint( const std::string& ip, const UINT16 port )
+        : _ip( ip ),
+        _port( port )
+    {
+        ::memset( &_sockAddr, 0, sizeof( SOCKADDR_IN ) );
     }
 
     IPEndPoint::IPEndPoint( const IPEndPoint& ep )
         :   _ip(ep._ip),
             _port(ep._port)
     {
-        _Create( AF_INET, _ip, _port );
+        ::memcpy( &_sockAddr, &ep._sockAddr, sizeof( SOCKADDR_IN ) );
     }
 
-    IPEndPoint::IPEndPoint( const std::string& ip, const UINT16 port )
-        :   _ip(ip),
-            _port(port)
-    {   
-        _Create( AF_INET, _ip, _port );
-    }
-
-    void IPEndPoint::SetSockAddress( const LPSOCKADDR sockAddr )
+    void IPEndPoint::ConvertAddress( const LPSOCKADDR sockAddr )
     {
         if( AF_INET == sockAddr->sa_family )
         {
             ::memcpy( &_sockAddr, sockAddr, sizeof( SOCKADDR ) );
 
             std::array<char, INET_ADDRSTRLEN> ip;
-            _ip = inet_ntop( AF_INET, reinterpret_cast<void*>(&_sockAddr.sin_addr.s_addr), ip.data(), sizeof( INET_ADDRSTRLEN ) );            
-            _port = _sockAddr.sin_port;
+            inet_ntop( AF_INET, &_sockAddr.sin_addr, ip.data(), INET_ADDRSTRLEN );
+
+            _ip = ip.data();
+            _port = ntohs( _sockAddr.sin_port );
         }
         else if( AF_INET6 == sockAddr->sa_family )
         {
-            // not support..
+            Console::Output( L"not support.." );
         }
     }
 
-    void IPEndPoint::_Create( const UINT16 family, const std::string& ip, const UINT16 port )
+    void IPEndPoint::CreateIP4( const std::string& ip, const UINT16 port )
     {
-        memset( &_sockAddr, 0, sizeof( SOCKADDR_IN ) );
-
-        _sockAddr.sin_family = family;
-        inet_pton( family, ip.c_str(), reinterpret_cast<void*>(&_sockAddr.sin_addr.s_addr) );
-        _sockAddr.sin_port = htons( port );
+        _CreateIP4( port, ip.c_str() );
     }
+
+    void IPEndPoint::CreateIP4( const UINT16 port )
+    {
+        _CreateIP4( port );
+    }
+
+    void IPEndPoint::UseIP4()
+    {
+        _CreateIP4( _port );
+    }
+
+    void IPEndPoint::_CreateIP4( const UINT16 port, const char* ip )
+    {   
+        _port = port;
+        _sockAddr.sin_family = AF_INET;
+        _sockAddr.sin_port = htons( port );
+
+        if( nullptr == ip )
+        {   
+            _sockAddr.sin_addr.s_addr = htonl( INADDR_ANY );
+        }
+        else
+        {
+            inet_pton( AF_INET, ip, &_sockAddr.sin_addr );       
+        }        
+    }
+
 }

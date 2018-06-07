@@ -8,8 +8,7 @@ namespace Kota
     LPFN_CONNECTEX NetAPI::_fnConnectEx = nullptr;
 
     NetAPI::NetAPI()
-    {
-        _CreateAPI();
+    {   
     }
 
     NetAPI::~NetAPI()
@@ -48,7 +47,7 @@ namespace Kota
         return SOCKET_ERROR != ::setsockopt( socket, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&reuseAddr), sizeof( reuseAddr ) );
     }
 
-    void NetAPI::_CreateAPI()
+    void NetAPI::CreateAPI()
     {
         const SOCKET socket = WSASocket( AF_INET, SOCK_STREAM, IPPROTO_TCP, nullptr, 0, WSA_FLAG_OVERLAPPED );
         if( INVALID_SOCKET == socket )

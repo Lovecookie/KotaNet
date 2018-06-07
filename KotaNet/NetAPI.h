@@ -15,10 +15,9 @@ namespace Kota
         static bool Linger( SOCKET socket, BOOL enable, UINT16 time );
         static bool NonBlocking( SOCKET socket, BOOL enable );
         static bool NoDelay( SOCKET socket, BOOL enable );
-        static bool ReuseAddr( SOCKET socket, BOOL enable );       
-
-    private:
-        void _CreateAPI();
+        static bool ReuseAddr( SOCKET socket, BOOL enable );
+    
+        void CreateAPI();
 
     private:
         static LPFN_DISCONNECTEX _fnDisconnectEx;

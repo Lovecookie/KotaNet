@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "NetAPI.h"
 
 namespace Kota
 {
@@ -12,5 +13,6 @@ namespace Kota
 
     private:
         bool _isIntializerError = false;
+        NetAPI _netApi;
     };
 }

@@ -15,7 +15,7 @@ namespace Kota
 
     void Console::Output( const wchar_t* str )
     {
-        std::cout << str << std::endl;
+        std::wcout << str << std::endl;
     }
 
 }

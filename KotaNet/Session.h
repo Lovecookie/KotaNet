@@ -48,15 +48,15 @@ namespace Kota
         bool _OnRecv( const DWORD bytesTransferred );
         bool _OnDisconnect( const DWORD bytesTransferred );
 
-    protected:
-        SOCKET _socket = INVALID_SOCKET;        
-        IPEndPoint _remoteEndPoint;
-        IPEndPoint _localEndPoint;
-        std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
+    protected:        
         std::array<char, 64> _addrBuff;
         std::array<char, 1024> _recvBuff;
+        IPEndPoint _remoteEndPoint;
+        SOCKET _socket = INVALID_SOCKET;
+        std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;
 
+    private:
         OverlappedCallback _accept;
         OverlappedCallback _connect;
         OverlappedCallback _send;

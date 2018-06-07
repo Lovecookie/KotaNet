@@ -3,15 +3,7 @@
 #include "Console.h"
 
 namespace Kota
-{
-    /*
-     * static value NetAPI
-     */
-    NetAPI netApi;
-
-    /*
-     *
-     */
+{   
     Session::Session()
         :   _socket( INVALID_SOCKET )
     {
@@ -173,14 +165,12 @@ namespace Kota
         PSOCKADDR remoteAddr = nullptr;
         PSOCKADDR localAddr = nullptr;
 
-        int localLength = sizeof( SOCKADDR_IN );
-        int remoteLength = sizeof( SOCKADDR_IN );
+        int addrSize = sizeof( SOCKADDR );
 
-        GetAcceptExSockaddrs( _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, &localAddr, &localLength,
-                              &remoteAddr, &remoteLength );
+        GetAcceptExSockaddrs( _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, &localAddr,
+                              &addrSize, &remoteAddr, &addrSize );
 
-        _remoteEndPoint.SetSockAddress( remoteAddr );
-        _localEndPoint.SetSockAddress( localAddr );
+        _remoteEndPoint.ConvertAddress( remoteAddr );        
         
         if( !Recv( nullptr, 0 ) )
         {
@@ -288,6 +278,13 @@ namespace Kota
 
     bool Session::_OnDisconnect( const DWORD bytesTransferred )
     {
+        if( _socket != INVALID_SOCKET )
+        {
+            shutdown( _socket, SD_BOTH );
+            closesocket( _socket );
+            _socket = INVALID_SOCKET;
+        }       
+
         return true;
     }
 }

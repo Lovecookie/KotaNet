@@ -5,7 +5,7 @@ namespace Kota
 {   
     Acceptor::Acceptor( const IPEndPoint& endPoint )
         :   _endPoint( endPoint )
-    {
+    {   
     }
 
     bool Acceptor::Accept( Session* const pSession )

@@ -27,6 +27,7 @@ namespace Kota
         _iocp.Initialize( 1, INFINITE );
 
         IPEndPoint endPoint( "127.0.0.1", 50001 );
+        endPoint.UseIP4();
 
         _pAcceptor = std::make_shared<Acceptor>( endPoint );
         _pAcceptor->CreateTCP();

@@ -13,6 +13,8 @@ namespace Kota
             _isIntializerError = false;
         }
 
+        _netApi.CreateAPI();
+
         _isIntializerError = true;
     }
 
