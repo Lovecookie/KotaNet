@@ -1,11 +1,11 @@
 ﻿#include "Session.h"
 #include "NetAPI.h"
 #include "Console.h"
+#include "MessageBase.h"
 
 namespace Kota
 {   
     Session::Session()
-        :   _socket( INVALID_SOCKET )
     {
         _accept.Bind( [this]( const DWORD bytes )
         {
@@ -242,30 +242,33 @@ namespace Kota
     }
 
     bool Session::_OnRecv( const DWORD bytesTransferred )
-    {   
-        DWORD readBytes = 0;
-
+    {
         do
-        {   
-            const auto result = ::recv( _socket, _recvBuff.data() + readBytes, 1024, 0 );
-
+        {
+            const auto result = ::recv( _socket, _recvBuff.data() + _remainedBytes, ReceiveSize, 0 );
             if( SOCKET_ERROR == result )
             {
-                if( WSAEWOULDBLOCK == result )
+                if( WSAEWOULDBLOCK != result )
                 {
-                    break;
+                    Console::Output( L"Session::_OnRecv() is error" );
+                    Disconnect();
+
+                    return false;
                 }
-
-                return false;
+                
+                //Recv( , 0 );
+                return true;
             }
 
-            if( 0 == result )
+            const auto msgBase = reinterpret_cast<MessageBase*>(_recvBuff.data());            
+            if( msgBase->size > ReceiveSize )
             {
-                return false;
+                
             }
 
-            readBytes = bytesTransferred;
-        } while( bytesTransferred > readBytes );
+
+            _remainedBytes = bytesTransferred;
+        } while( bytesTransferred > 4 );
 
         
         if( !Recv(nullptr, 0 ) )

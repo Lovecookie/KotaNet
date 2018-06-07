@@ -10,10 +10,17 @@ namespace Kota
     {
         HANDLE GetHandle();
         void OnError();
-    };
+    };    
 
     class Session : public ISessionObject
     {
+    private:
+        /*
+         * 임시 상수
+         */
+        static const INT32 ReceiveSize = 2048;
+        static const INT32 SendSize = 1024;
+
     public:
         Session();
         virtual ~Session();
@@ -50,8 +57,9 @@ namespace Kota
 
     protected:        
         std::array<char, 64> _addrBuff;
-        std::array<char, 1024> _recvBuff;
+        std::array<char, ReceiveSize> _recvBuff;
         IPEndPoint _remoteEndPoint;
+        UINT16 _remainedBytes = 0;
         SOCKET _socket = INVALID_SOCKET;
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;
