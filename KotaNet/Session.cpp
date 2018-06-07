@@ -1,10 +1,17 @@
 ﻿#include "Session.h"
 #include "NetAPI.h"
+#include "Console.h"
 
 namespace Kota
 {
+    /*
+     * static value NetAPI
+     */
     NetAPI netApi;
 
+    /*
+     *
+     */
     Session::Session()
         :   _socket( INVALID_SOCKET )
     {
@@ -85,8 +92,16 @@ namespace Kota
     }
 
     bool Session::Disconnect()
-    {   
-        NetAPI::
+    {
+        const auto result = NetAPI::Disconnect( _socket, &_disconnect );        
+        if( FALSE == result )
+        {
+            if( WSAGetLastError() != WSA_IO_PENDING )
+            {
+                Console::Output( L"NetAPI::Disconnect() is failed.." );
+                return false;
+            }
+        }
 
         return true;
     }
@@ -163,6 +178,9 @@ namespace Kota
 
         GetAcceptExSockaddrs( _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, &localAddr, &localLength,
                               &remoteAddr, &remoteLength );
+
+        _remoteEndPoint.SetSockAddress( remoteAddr );
+        _localEndPoint.SetSockAddress( localAddr );
         
         if( !Recv( nullptr, 0 ) )
         {

@@ -5,57 +5,72 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Kota">
+      <UniqueIdentifier>{0f0fe918-beef-4666-908b-a2e3d08d4e72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Acceptor.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="Iocp.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="IPEndPoint.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="NetworkInitialier.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="OverlappedCallback.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="Provider.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Kota</Filter>
+    </ClCompile>
+    <ClCompile Include="NetAPI.cpp">
+      <Filter>Kota</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="Iocp.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="IPEndPoint.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="NetworkInitialier.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="OverlappedCallback.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="Provider.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="SampleDefine.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Kota</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Kota</Filter>
+    </ClInclude>
+    <ClInclude Include="NetAPI.h">
+      <Filter>Kota</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

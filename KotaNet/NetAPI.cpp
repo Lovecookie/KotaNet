@@ -16,19 +16,18 @@ namespace Kota
     {
     }
 
-    bool NetAPI::Disconnect( SOCKET socket, LPOVERLAPPED overlapped )
+    BOOL NetAPI::Disconnect( SOCKET socket, LPOVERLAPPED overlapped )
     {   
-        const auto result = _fnDisconnectEx( socket, overlapped, TF_REUSE_SOCKET, 0 );
-        if( FALSE == result )
-        {
-            if( WSAGetLastError() != WSA_IO_PENDING )
-            {
-                Console::Output( L"NetAPI::Disconnect() is failed.." );
-                return false;
-            }
-        }
+        return _fnDisconnectEx( socket, overlapped, TF_REUSE_SOCKET, 0 );        
+    }
 
-        return true;
+    bool NetAPI::Linger( SOCKET socket, BOOL enable, UINT16 time )
+    {
+        LINGER option;
+        option.l_onoff = enable == TRUE ? 1 : 0;
+        option.l_linger = time;
+
+        return SOCKET_ERROR != setsockopt( socket, SOL_SOCKET, SO_LINGER, reinterpret_cast<const char*>(&option), sizeof( LINGER ) );
     }
 
     bool NetAPI::NonBlocking( SOCKET socket, BOOL enable )

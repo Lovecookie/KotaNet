@@ -147,8 +147,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
+    <ClCompile Include="NetAPI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInitialier.cpp" />
     <ClCompile Include="OverlappedCallback.cpp" />
@@ -157,8 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Iocp.h" />
     <ClInclude Include="IPEndPoint.h" />
+    <ClInclude Include="NetAPI.h" />
     <ClInclude Include="NetworkInitialier.h" />
     <ClInclude Include="OverlappedCallback.h" />
     <ClInclude Include="Provider.h" />

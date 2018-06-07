@@ -33,6 +33,8 @@ namespace Kota
             return _port;
         }
 
+        void SetSockAddress( const LPSOCKADDR sockAddr );
+
     private:
         void _Create( const UINT16 family, const std::string& ip, const UINT16 port );
 
