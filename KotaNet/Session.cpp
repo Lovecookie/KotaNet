@@ -7,30 +7,11 @@ namespace Kota
 {   
     Session::Session()
     {
-        _accept.Bind( [this]( const DWORD bytes )
-        {
-            return _OnAccept( bytes );
-        } );
-
-        _connect.Bind( [this]( const DWORD bytes )
-        {
-            return _OnConnect( bytes );
-        } );
-
-        _recv.Bind( [this]( const DWORD bytes )
-        {
-            return _OnRecv( bytes );
-        } );
-
-        _send.Bind( [this]( const DWORD bytes )
-        {
-            return _OnSend( bytes );
-        } );
-
-        _disconnect.Bind( [this]( const DWORD bytes )
-        {
-            return _OnDisconnect( bytes );
-        } );
+		_accept.Bind( std::bind( &Session::_OnAccept ) );
+		_connect.Bind( std::bind( &Session::_OnConnect ) );
+		_recv.Bind( std::bind( &Session::_OnConnect ) );
+		_send.Bind( std::bind( &Session::_OnSend ) );
+		_disconnect.Bind( std::bind( &Session::_OnDisconnect ) );		
     }
 
     Session::~Session()

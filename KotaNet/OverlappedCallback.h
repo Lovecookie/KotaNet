@@ -13,7 +13,12 @@ namespace Kota
         explicit OverlappedCallback( OverlappedFunc&& func );
         ~OverlappedCallback() = default;
 
-        void Bind( OverlappedFunc&& func );
+		template<typename Fn>
+		void Bind( Fn&& func )
+		{
+			_callback = Fn;
+		}
+        
         bool DoWork( const DWORD bytesTransferred );
 
     private:
