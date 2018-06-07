@@ -41,7 +41,7 @@ namespace Kota
         
         bool Accept( const Session& listenSession );
         bool Create();
-        void Close();
+        bool Close();
         bool Connect();
         bool Disconnect();
         bool Send( std::tuple<char*, ULONG, ULONG>& buff );

@@ -26,7 +26,8 @@ namespace Kota
             return false;
         }
 
-        const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, nullptr, &_accept );
+		const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength,
+									  IPEndPoint::AddrLength, nullptr, &_accept );
         if( result == FALSE )
         {
             const auto error = WSAGetLastError();
@@ -50,12 +51,18 @@ namespace Kota
         return true;
     }
 
-    void Session::Close()
-    {
-        if( INVALID_SOCKET != _socket )
-        {
-            shutdown( _socket, SD_SEND );
-        }
+    bool Session::Close()
+    {  
+		if( _socket == INVALID_SOCKET )
+		{
+			return false;			
+		}
+
+		shutdown( _socket, SD_BOTH );
+		closesocket( _socket );
+		_socket = INVALID_SOCKET;
+
+		return true;
     }
 
     bool Session::Connect()
@@ -243,7 +250,7 @@ namespace Kota
 
             const auto msgBase = reinterpret_cast<MessageBase*>(_recvBuff.data());            
             if( msgBase->size > ReceiveSize )
-            {   
+            {
             }
 
             _remainedBytes = bytesTransferred;
@@ -260,13 +267,6 @@ namespace Kota
 
     bool Session::_OnDisconnect( const DWORD bytesTransferred )
     {
-        if( _socket != INVALID_SOCKET )
-        {
-            shutdown( _socket, SD_BOTH );
-            closesocket( _socket );
-            _socket = INVALID_SOCKET;
-        }       
-
-        return true;
+		return Close();        
     }
 }
