@@ -262,10 +262,8 @@ namespace Kota
 
             const auto msgBase = reinterpret_cast<MessageBase*>(_recvBuff.data());            
             if( msgBase->size > ReceiveSize )
-            {
-                
+            {   
             }
-
 
             _remainedBytes = bytesTransferred;
         } while( bytesTransferred > 4 );
