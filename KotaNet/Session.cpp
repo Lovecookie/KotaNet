@@ -1,11 +1,15 @@
 ﻿#include "Session.h"
 #include "NetAPI.h"
 #include "Console.h"
-#include "MessageBase.h"
+#include "MessageHeader.h"
+#include "PacketMakeService.h"
+#include "CppSerializer.h"
 
 namespace Kota
 {   
-    Session::Session()
+    Session::Session( PacketMakeService* pService, ISerializer* pSerializer )
+        :   _pMakeService( pService ),
+            _pSerializer( pSerializer )
     {
         _accept.Bind( std::bind( &Session::_OnAccept, this, std::placeholders::_1 ) );
         _connect.Bind( std::bind( &Session::_OnConnect, this, std::placeholders::_1 ) );
@@ -26,7 +30,7 @@ namespace Kota
             return false;
         }
 
-		const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength,
+        const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength,
 									  IPEndPoint::AddrLength, nullptr, &_accept );
         if( result == FALSE )
         {
@@ -53,16 +57,16 @@ namespace Kota
 
     bool Session::Close()
     {  
-		if( _socket == INVALID_SOCKET )
-		{
-			return false;			
-		}
+	if( _socket == INVALID_SOCKET )
+	{
+		return false;			
+	}
 
-		shutdown( _socket, SD_BOTH );
-		closesocket( _socket );
-		_socket = INVALID_SOCKET;
+	shutdown( _socket, SD_BOTH );
+	closesocket( _socket );
+	_socket = INVALID_SOCKET;
 
-		return true;
+	return true;
     }
 
     bool Session::Connect()
@@ -146,6 +150,21 @@ namespace Kota
         NetAPI::ReuseAddr( socket, TRUE );
 
         return socket;
+    }
+    
+    MessageBase* Session::_DismantlePacket( const MessageHeader* pMsgBase, const char* pBody )
+    {   
+        const auto pMessageBase = _pMakeService->Clone( pMsgBase );
+        if( nullptr == pMessageBase )
+        {
+            return nullptr;
+        }
+
+        _pSerializer->pBody = pBody;
+
+        pMessageBase->Deserialize( _pSerializer, pBody );
+
+        return pMessageBase;
     }
 
     bool Session::_OnAccept( const DWORD bytesTransferred )
@@ -233,7 +252,7 @@ namespace Kota
     {
         do
         {
-            const auto result = ::recv( _socket, _recvBuff.data() + _remainedBytes, ReceiveSize, 0 );
+            const auto result = ::recv( _socket, _remainedBuff.data() + _readBytes, ReceiveSize, 0 );
             if( SOCKET_ERROR == result )
             {
                 if( WSAEWOULDBLOCK != result )
@@ -248,12 +267,20 @@ namespace Kota
                 return true;
             }
 
-            const auto msgBase = reinterpret_cast<MessageBase*>(_recvBuff.data());            
-            if( msgBase->size > ReceiveSize )
+            const auto pMsgHeader = reinterpret_cast<MessageHeader*>(_remainedBuff.data());
+            if( pMsgHeader->size > ReceiveSize )
             {
+                Console::Output( L"Session::_OnRecv() overflow receive size" );
+                Disconnect();
+                return false;
             }
 
-            _remainedBytes = bytesTransferred;
+            const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
+            _readBytes = pMsgHeader->size;
+            
+            const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
+
+            
         } while( bytesTransferred > 4 );
 
         
@@ -267,6 +294,8 @@ namespace Kota
 
     bool Session::_OnDisconnect( const DWORD bytesTransferred )
     {
-		return Close();        
+    	return Close();        
     }
+
+
 }

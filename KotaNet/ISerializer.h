@@ -1,10 +1,15 @@
 #pragma once
 
+#include "SampleDefine.h"
+
 namespace Kota
 {
-    __interface ISerializer
+    class ISerializer abstract
     {
-        bool Serialize( const char* data );
-        bool Deserialize( const char* data );
+    public:
+        virtual bool Serialize( const char* data ) const = 0;
+        virtual bool Deserialize( const char* data ) const = 0;
+        
+        const char* pBody;
     };
 }

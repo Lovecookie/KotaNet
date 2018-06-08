@@ -151,10 +151,12 @@
     <ClCompile Include="CppSerializer.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
+    <ClCompile Include="MessageHeader.cpp" />
     <ClCompile Include="NetAPI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInitialier.cpp" />
     <ClCompile Include="OverlappedCallback.cpp" />
+    <ClCompile Include="PacketMakeService.cpp" />
     <ClCompile Include="Provider.cpp" />
     <ClCompile Include="Session.cpp" />
   </ItemGroup>
@@ -165,11 +167,12 @@
     <ClInclude Include="Iocp.h" />
     <ClInclude Include="IPEndPoint.h" />
     <ClInclude Include="ISerializer.h" />
-    <ClInclude Include="MessageBase.h" />
-    <ClInclude Include="MsgChat.h" />
+    <ClInclude Include="MessageHeader.h" />
+    <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="NetAPI.h" />
     <ClInclude Include="NetworkInitialier.h" />
     <ClInclude Include="OverlappedCallback.h" />
+    <ClInclude Include="PacketMakeService.h" />
     <ClInclude Include="Provider.h" />
     <ClInclude Include="SampleDefine.h" />
     <ClInclude Include="Session.h" />

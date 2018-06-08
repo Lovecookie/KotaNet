@@ -3,12 +3,20 @@
 
 namespace Kota
 {
-    class CppSerializer : public ISerializer
+    class CppSerializer final : public ISerializer
     {
     public:
-        virtual ~CppSerializer() = default;
+        ~CppSerializer() = default;        
+        
+        bool Serialize( const char* data ) const override
+        {   
+        }
 
-        bool Serialize(const char* data) override;
-        bool Deserialize(const char* data) override;
+        bool Deserialize( const char* data ) const override
+        {
+        }
+
+    private:
+        
     };
 }

@@ -6,6 +6,11 @@
 
 namespace Kota
 {
+    struct MessageHeader;
+    struct MessageBase;
+    class PacketMakeService;
+    class ISerializer;
+
     __interface ISessionObject
     {
         HANDLE GetHandle();
@@ -22,7 +27,7 @@ namespace Kota
         static const INT32 SendSize = 1024;
 
     public:
-        Session();
+        Session( PacketMakeService* pService, ISerializer* pSerializer );
         virtual ~Session();
 
         SOCKET GetSocket() const
@@ -49,6 +54,7 @@ namespace Kota
 
     protected:
         virtual SOCKET _CreateSocket();
+        MessageBase* _DismantlePacket( const MessageHeader* pMsgBase, const char* pBody );
         bool _OnAccept( const DWORD bytesTransferred );
         bool _OnConnect( const DWORD bytesTransferred );
         bool _OnSend( const DWORD bytesTransferred );
@@ -58,11 +64,15 @@ namespace Kota
     protected:        
         std::array<char, 64> _addrBuff;
         std::array<char, ReceiveSize> _recvBuff;
+        std::array<char, ReceiveSize> _remainedBuff;
         IPEndPoint _remoteEndPoint;
-        DWORD _remainedBytes = 0;
+        DWORD _readBytes = 0;
         SOCKET _socket = INVALID_SOCKET;
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;
+
+        PacketMakeService* _pMakeService;
+        ISerializer* _pSerializer;
 
     private:
         OverlappedCallback _accept;

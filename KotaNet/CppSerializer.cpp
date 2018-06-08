@@ -3,16 +3,15 @@
 
 namespace Kota
 {
-    bool CppSerializer::Serialize( const char* data )
-    {
-        
-        return true;
-    }
+    //bool CppSerializer::Serialize( const char* data, UINT16 size ) const
+    //{   
+    //    return true;
+    //}
 
-    bool CppSerializer::Deserialize( const char* data )
-    {
+    //bool CppSerializer::Deserialize( const char* data, UINT16 size ) const
+    //{
 
-        return true;
-    }
+    //    return true;
+    //}
 
 }

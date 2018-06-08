@@ -13,6 +13,8 @@
 #include <thread>
 #include <chrono>
 #include <list>
+#include <unordered_map>
+#include <tuple>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")

@@ -11,6 +11,9 @@
     <Filter Include="Packet">
       <UniqueIdentifier>{d49a6b4e-3ab0-4e2f-a7be-70031e437d53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{19320d60-f58b-4aa7-a0d0-2eeee9095aa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +49,12 @@
     <ClCompile Include="CppSerializer.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
+    <ClCompile Include="MessageHeader.cpp">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketMakeService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h">
@@ -78,16 +87,19 @@
     <ClInclude Include="NetAPI.h">
       <Filter>Kota</Filter>
     </ClInclude>
-    <ClInclude Include="MessageBase.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
-    <ClInclude Include="MsgChat.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
     <ClInclude Include="ISerializer.h">
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="CppSerializer.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageHeader.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketMakeService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDefine.h">
       <Filter>Packet</Filter>
     </ClInclude>
   </ItemGroup>
