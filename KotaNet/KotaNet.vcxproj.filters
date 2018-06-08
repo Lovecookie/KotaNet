@@ -8,6 +8,9 @@
     <Filter Include="Kota">
       <UniqueIdentifier>{0f0fe918-beef-4666-908b-a2e3d08d4e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{d49a6b4e-3ab0-4e2f-a7be-70031e437d53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,6 +43,9 @@
     <ClCompile Include="NetAPI.cpp">
       <Filter>Kota</Filter>
     </ClCompile>
+    <ClCompile Include="CppSerializer.cpp">
+      <Filter>Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h">
@@ -71,6 +77,18 @@
     </ClInclude>
     <ClInclude Include="NetAPI.h">
       <Filter>Kota</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageBase.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="MsgChat.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="ISerializer.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSerializer.h">
+      <Filter>Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

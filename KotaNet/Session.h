@@ -59,7 +59,7 @@ namespace Kota
         std::array<char, 64> _addrBuff;
         std::array<char, ReceiveSize> _recvBuff;
         IPEndPoint _remoteEndPoint;
-        UINT16 _remainedBytes = 0;
+        DWORD _remainedBytes = 0;
         SOCKET _socket = INVALID_SOCKET;
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;

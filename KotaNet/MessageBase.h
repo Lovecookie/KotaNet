@@ -12,5 +12,5 @@ namespace Kota
         UINT16 id;
     };    
 
-    #pragma pack(pop)
+    #pragma pack()
 }
