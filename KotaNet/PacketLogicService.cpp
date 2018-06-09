@@ -1,15 +1,15 @@
-#include "PacketMakeService.h"
+#include "PacketLogicService.h"
 #include "MessageHeader.h"
 
 
 namespace Kota
 {
-    bool PacketMakeService::Initialize()
+    bool PacketLogicService::Initialize()
     {
         return true;
     }
 
-    void PacketMakeService::Finalize()
+    void PacketLogicService::Finalize()
     {  
         for( auto iter : _messageMap )
         {
@@ -24,13 +24,18 @@ namespace Kota
         _messageMap.clear();
     }
 
-    void PacketMakeService::AddPacket( const MessageBase* const pBase )
+	void PacketLogicService::AddLogicTask( const ILogicTask* const pTask )
+	{
+
+	}
+
+    void PacketLogicService::AddPacket( const MessageBase* const pBase )
     {
         // юс╫ц
         _messageMap.emplace( std::make_pair( pBase->id, std::make_tuple( pBase, []( const MessageBase* const p ) {} ) ) );
     }
 
-    MessageBase* PacketMakeService::Clone( const MessageHeader* const pBase )
+    MessageBase* PacketLogicService::Clone( const MessageHeader* const pBase )
     {
         const auto iter = _messageMap.find( pBase->id );
         if( _messageMap.end() == iter )

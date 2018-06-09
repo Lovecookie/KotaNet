@@ -2,9 +2,12 @@
 
 #include "SampleDefine.h"
 
+
 namespace Kota
-{
-    __interface IService
+{	
+	__interface ILogicTask;
+
+	__interface IService
     {   
         bool Initialize();
         void Finalize();
@@ -13,7 +16,7 @@ namespace Kota
     struct MessageHeader;
     struct MessageBase;
 
-    class PacketMakeService final : public IService
+    class PacketLogicService final : public IService
     {
     public:
         using OnPacketFunc = std::function<void( const MessageBase* const )>;
@@ -23,12 +26,14 @@ namespace Kota
         bool Initialize() override;
         void Finalize() override;
 
-        void AddPacket( const MessageBase* const pBase );
+		void AddLogicTask( const ILogicTask* const pTask );
+		void AddPacket( const MessageBase* const pBase );
 
-        MessageBase* Clone( const MessageHeader* const pBase );
+        MessageBase* Clone( const MessageHeader* const pBase );		
 
     private:
         std::unordered_map<UINT16, ValueType> _messageMap;
+		std::queue<ILogicTask*> _taskQueue;
     };
 
 }

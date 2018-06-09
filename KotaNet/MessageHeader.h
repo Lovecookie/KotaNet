@@ -2,6 +2,7 @@
 
 #include "SampleDefine.h"
 #include "ISerializer.h"
+#include "ILogicTask.h"
 
 namespace Kota
 {
@@ -22,7 +23,7 @@ namespace Kota
     #pragma pack(pop)
 
     
-    struct MessageBase abstract
+    struct MessageBase abstract : public ILogicTask
     {   
         virtual ~MessageBase() = default;
 

@@ -2,13 +2,13 @@
 #include "NetAPI.h"
 #include "Console.h"
 #include "MessageHeader.h"
-#include "PacketMakeService.h"
+#include "PacketLogicService.h"
 #include "CppSerializer.h"
 
 namespace Kota
 {   
-    Session::Session( PacketMakeService* pService )
-        :   _pMakeService( pService )
+    Session::Session( PacketLogicService* pService )
+        : _pPacketService( pService )
     {
         _accept.Bind( std::bind( &Session::_OnAccept, this, std::placeholders::_1 ) );
         _connect.Bind( std::bind( &Session::_OnConnect, this, std::placeholders::_1 ) );
@@ -276,8 +276,15 @@ namespace Kota
             _readBytes = pMsgHeader->size;
             
             const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
+			if( nullptr == pMessageBase )
+			{
+				Console::Output( L"Session::_OnRecv() messageBase is null" );
+				Disconnect();
+				return false;
+			}
 
-            
+			_pPacketService->AddLogicTask( pMessageBase );
+						            
         } while( bytesTransferred > 4 );
 
         
