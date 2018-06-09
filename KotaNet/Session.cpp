@@ -7,9 +7,8 @@
 
 namespace Kota
 {   
-    Session::Session( PacketMakeService* pService, ISerializer* pSerializer )
-        :   _pMakeService( pService ),
-            _pSerializer( pSerializer )
+    Session::Session( PacketMakeService* pService )
+        :   _pMakeService( pService )
     {
         _accept.Bind( std::bind( &Session::_OnAccept, this, std::placeholders::_1 ) );
         _connect.Bind( std::bind( &Session::_OnConnect, this, std::placeholders::_1 ) );
@@ -159,10 +158,8 @@ namespace Kota
         {
             return nullptr;
         }
-
-        _pSerializer->pBody = pBody;
-
-        pMessageBase->Deserialize( _pSerializer, pBody );
+        
+        pMessageBase->Deserialize( pBody );
 
         return pMessageBase;
     }

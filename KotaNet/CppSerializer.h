@@ -3,17 +3,21 @@
 
 namespace Kota
 {
-    class CppSerializer final : public ISerializer
+    class CppSerializer final
     {
     public:
         ~CppSerializer() = default;        
         
-        bool Serialize( const char* data ) const override
+		template< typename T >
+        void Serialize( T* type, const char* data ) const override
         {   
+			::memcpy( data, type, sizeof( T ) );
         }
 
-        bool Deserialize( const char* data ) const override
+		template< typename T >
+        T* Deserialize( const char* data ) const override
         {
+			return reinterpret_cast<T*>( data );
         }
 
     private:

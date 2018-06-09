@@ -27,8 +27,8 @@ namespace Kota
         virtual ~MessageBase() = default;
 
         virtual MessageBase* Clone() const = 0;
-        virtual bool Deserialize( const ISerializer* const pSerializer, const char* pBody ) = 0;
-        virtual bool Serialize( const ISerializer* const pSerializer, const char* pBody ) = 0;
+        virtual void Deserialize( const char* pBody ) = 0;
+        virtual void Serialize( const char* pBody ) = 0;
 
         UINT16 size;
         UINT16 id;
