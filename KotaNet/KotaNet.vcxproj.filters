@@ -14,6 +14,9 @@
     <Filter Include="Service">
       <UniqueIdentifier>{19320d60-f58b-4aa7-a0d0-2eeee9095aa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{f68da2bb-668f-481d-82d2-e9e00e15ba81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,7 +55,7 @@
     <ClCompile Include="MessageHeader.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="PacketMakeService.cpp">
+    <ClCompile Include="PacketLogicService.cpp">
       <Filter>Service</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,11 +99,14 @@
     <ClInclude Include="MessageHeader.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="PacketMakeService.h">
-      <Filter>Service</Filter>
-    </ClInclude>
     <ClInclude Include="MessageDefine.h">
       <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketLogicService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="LockGuard.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

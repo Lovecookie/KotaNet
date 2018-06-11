@@ -4,7 +4,8 @@
 namespace Kota
 {   
     Acceptor::Acceptor( const IPEndPoint& endPoint )
-        :   _endPoint( endPoint )
+        :   _endPoint( endPoint ),
+            _session( nullptr )
     {   
     }
 

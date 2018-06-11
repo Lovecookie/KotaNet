@@ -6,6 +6,7 @@
 namespace Kota
 {
     class Acceptor;
+    class PacketLogicService;
 
     class Provider final 
     {
@@ -30,6 +31,7 @@ namespace Kota
 
     private:
         std::shared_ptr<Acceptor> _pAcceptor;
+        std::shared_ptr<PacketLogicService> _pPacketLogicService;
         Iocp _iocp;
         std::atomic_uint32_t _connectedCount;
         bool _isRunning;

@@ -8,7 +8,7 @@
 namespace Kota
 {   
     Session::Session( PacketLogicService* pService )
-        : _pPacketService( pService )
+        : _pPacketLogicService( pService )
     {
         _accept.Bind( std::bind( &Session::_OnAccept, this, std::placeholders::_1 ) );
         _connect.Bind( std::bind( &Session::_OnConnect, this, std::placeholders::_1 ) );
@@ -153,13 +153,21 @@ namespace Kota
     
     MessageBase* Session::_DismantlePacket( const MessageHeader* pMsgBase, const char* pBody )
     {   
-        const auto pMessageBase = _pMakeService->Clone( pMsgBase );
+        const auto pMessageBase = _pPacketLogicService->Clone( pMsgBase );
         if( nullptr == pMessageBase )
         {
             return nullptr;
         }
         
-        pMessageBase->Deserialize( pBody );
+        try
+        {
+            pMessageBase->Deserialize( pBody );
+        }
+        catch( std::exception e )
+        {
+            Console::Output( e.what() );
+            return nullptr;
+        }
 
         return pMessageBase;
     }
@@ -274,16 +282,22 @@ namespace Kota
 
             const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
             _readBytes = pMsgHeader->size;
+
+            if( nullptr == _pPacketLogicService )
+            {
+                Disconnect();
+                return false;
+            }
             
             const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
-			if( nullptr == pMessageBase )
-			{
-				Console::Output( L"Session::_OnRecv() messageBase is null" );
-				Disconnect();
-				return false;
-			}
+	    if( nullptr == pMessageBase )
+	    {
+		    Console::Output( L"Session::_OnRecv() messageBase is null" );
+		    Disconnect();
+		    return false;
+	    }
 
-			_pPacketService->AddLogicTask( pMessageBase );
+            _pPacketLogicService->EmplaceTask( pMessageBase );
 						            
         } while( bytesTransferred > 4 );
 

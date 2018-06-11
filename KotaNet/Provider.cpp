@@ -1,5 +1,6 @@
 ﻿#include "Provider.h"
 #include "Acceptor.h"
+#include "PacketLogicService.h"
 
 namespace Kota
 {
@@ -24,7 +25,9 @@ namespace Kota
 
     bool Provider::NetworkStart()
     {   
-        _iocp.Initialize( 1, INFINITE );
+        _pPacketLogicService = std::make_shared<PacketLogicService>();
+
+        _iocp.Initialize( 1, INFINITE );        
 
         IPEndPoint endPoint( "127.0.0.1", 50001 );
         endPoint.UseIP4();
@@ -63,7 +66,7 @@ namespace Kota
 
         for( auto index=0; index < 20; ++index )
         {
-            pSession = new Session();
+            pSession = new Session( _pPacketLogicService.get() );
             pSession->Create();
             _iocp.Associate( pSession );
 

@@ -15,6 +15,8 @@
 #include <list>
 #include <unordered_map>
 #include <tuple>
+#include <wincon.h>
+#include <mutex>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")

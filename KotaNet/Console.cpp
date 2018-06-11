@@ -3,10 +3,10 @@
 
 namespace Kota
 {
-    /*void Console::Output( const char* str )
-    {
+    void Console::Output( const char* str)
+    {   
         std::cout << str << std::endl;
-    }*/
+    }
 
     void Console::Output( std::string& str )
     {

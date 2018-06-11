@@ -71,7 +71,7 @@ namespace Kota
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;
 
-		PacketLogicService* _pMakeService;
+	PacketLogicService* _pPacketLogicService;
 
     private:
         OverlappedCallback _accept;
