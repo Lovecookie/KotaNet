@@ -8,7 +8,7 @@ namespace Kota
     {
     }
 
-    UINT32 Provider::GetConnectedCount()
+    /*UINT32 Provider::GetConnectedCount()
     {
         return _connectedCount.load();
     }
@@ -21,7 +21,7 @@ namespace Kota
     void Provider::DecreamentConnected()
     {
         _connectedCount.fetch_sub( 1 );
-    }
+    }*/
 
     bool Provider::NetworkStart()
     {   

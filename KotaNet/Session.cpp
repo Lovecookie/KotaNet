@@ -118,7 +118,8 @@ namespace Kota
     {
         WSABUF wsa;
         wsa.buf = buf;
-        wsa.len = len;
+        wsa.len = len;        
+        _readBytes = 0;
 
         DWORD readBytes = 0;
         DWORD flags = 0;
@@ -255,59 +256,58 @@ namespace Kota
 
     bool Session::_OnRecv( const DWORD bytesTransferred )
     {
-        do
+        if( nullptr == _pPacketLogicService )
         {
-            const auto result = ::recv( _socket, _remainedBuff.data() + _readBytes, ReceiveSize, 0 );
-            if( SOCKET_ERROR == result )
+            Disconnect();
+            return false;
+        }
+
+        do
+        {   
+            /*const auto recvSize = ::recv( _socket, nullptr, 0, MSG_PEEK );*/
+            const auto recvSize = ::recv( _socket, _remainedBuff.data() + _readBytes, ReceiveSize - _readBytes, 0 );
+            if( SOCKET_ERROR == recvSize )
             {
-                if( WSAEWOULDBLOCK != result )
+                if( WSAEWOULDBLOCK != GetLastError() )
                 {
                     Console::Output( L"Session::_OnRecv() is error" );
                     Disconnect();
 
                     return false;
                 }
-                
-                //Recv( , 0 );
-                return true;
+
+                return Recv( nullptr, 0 );
+            }
+
+            _readBytes += recvSize;
+            if( InvalidHeader( _readBytes ) )
+            {
+                continue;
             }
 
             const auto pMsgHeader = reinterpret_cast<MessageHeader*>(_remainedBuff.data());
-            if( pMsgHeader->size > ReceiveSize )
+            if( pMsgHeader->IsInvalid( _readBytes ) )
             {
-                Console::Output( L"Session::_OnRecv() overflow receive size" );
-                Disconnect();
-                return false;
+                continue;
             }
 
             const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
-            _readBytes = pMsgHeader->size;
 
-            if( nullptr == _pPacketLogicService )
-            {
-                Disconnect();
-                return false;
-            }
-            
             const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
 	    if( nullptr == pMessageBase )
 	    {
-		    Console::Output( L"Session::_OnRecv() messageBase is null" );
-		    Disconnect();
-		    return false;
+		Console::Output( L"Session::_OnRecv() messageBase is null" );
+		Disconnect();
+		return false;
 	    }
 
             _pPacketLogicService->EmplaceTask( pMessageBase );
-						            
-        } while( bytesTransferred > 4 );
 
+            break;
+        } while( true );
         
-        if( !Recv(nullptr, 0 ) )
-        {
-            return false;
-        }
 
-        return true;
+        return Recv( nullptr, 0 );
     }
 
     bool Session::_OnDisconnect( const DWORD bytesTransferred )

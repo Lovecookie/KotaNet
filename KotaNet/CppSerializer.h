@@ -11,7 +11,7 @@ namespace Kota
         template <typename T>
         void Serialize( T* type, const char* data ) const
         {
-            ::memcpy( data, type, sizeof( T) );
+            ::memcpy( data, type, sizeof( T ) );
         }
 
         template <typename T>

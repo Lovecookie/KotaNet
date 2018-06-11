@@ -42,7 +42,7 @@ namespace Kota
 
         void OnError() override
         {
-        }
+        }       
         
         bool Accept( const Session& listenSession );
         bool Create();

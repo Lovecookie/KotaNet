@@ -8,6 +8,9 @@ namespace Kota
     class Acceptor;
     class PacketLogicService;
 
+    /*
+     * Provider의 역할을 변경할 예정
+     */
     class Provider final 
     {
     public:
@@ -19,9 +22,9 @@ namespace Kota
             return _isRunning;
         }       
 
-        UINT32 GetConnectedCount();
+        /*UINT32 GetConnectedCount();
         void IncreamentConnected();
-        void DecreamentConnected();
+        void DecreamentConnected();*/
 
         bool NetworkStart();
         void NetworkClose();

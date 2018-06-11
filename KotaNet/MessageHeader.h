@@ -15,6 +15,11 @@ namespace Kota
         {
             return size - headerSize;
         }
+
+        bool IsInvalid( const INT32 readSize )
+        {
+            return size > readSize;
+        }
     
         UINT16 size;
         UINT16 id;
@@ -33,4 +38,9 @@ namespace Kota
         UINT16 size;
         UINT16 id;
     };
+
+    inline bool InvalidHeader( const INT32 readSize )
+    {
+        return MessageHeader::headerSize >= readSize;
+    }
 }
