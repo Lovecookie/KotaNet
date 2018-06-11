@@ -21,7 +21,6 @@ namespace Kota
     };
 
     #pragma pack(pop)
-
     
     struct MessageBase abstract : public ILogicTask
     {   
