@@ -1,10 +1,12 @@
 ﻿  Session.cpp
+  Provider.cpp
+  PacketLogicService.cpp
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
-  PacketLogicService.cpp
+  main.cpp
   MessageHeader.cpp
+  Iocp.cpp
+  Acceptor.cpp
   코드를 생성하고 있습니다...
-  건너뛰고 있습니다... (관련된 변경 내용 없음)
-  CppSerializer.cpp
   KotaNet.vcxproj -> D:\스마일게이트 과제\백승민_포트폴리오\3.KotaNet\KotaNet\x64\Debug\KotaNet.exe
   KotaNet.vcxproj -> D:\스마일게이트 과제\백승민_포트폴리오\3.KotaNet\KotaNet\x64\Debug\KotaNet.pdb (Full PDB)

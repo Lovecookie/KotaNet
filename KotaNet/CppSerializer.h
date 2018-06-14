@@ -9,7 +9,7 @@ namespace Kota
         ~CppSerializer() = default;
 
         template <typename T>
-        void Serialize( T* type, const char* data ) const
+        void Serialize( T* type, OUT const char* data ) const
         {
             ::memcpy( data, type, sizeof( T ) );
         }
@@ -18,6 +18,6 @@ namespace Kota
         T* Deserialize( const char* data ) const
         {
             return reinterpret_cast<T*>(data);
-        }    
+        }
     };
 }

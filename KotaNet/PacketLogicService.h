@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SampleDefine.h"
+#include "IService.h"
 
 namespace Kota
 {	
@@ -8,12 +8,6 @@ namespace Kota
     struct MessageHeader;
     struct MessageBase;
 
-
-    __interface IService
-    {   
-        bool Initialize();
-        void Finalize();
-    };
 
     class PacketLogicService final : public IService
     {

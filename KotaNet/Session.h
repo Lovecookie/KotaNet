@@ -50,7 +50,7 @@ namespace Kota
         bool Connect();
         bool Disconnect();
         bool Send( std::tuple<char*, ULONG, ULONG>& buff );
-        bool Recv( char* buf, ULONG len );
+        bool PostReceive();
 
     protected:
         virtual SOCKET _CreateSocket();
@@ -66,7 +66,7 @@ namespace Kota
         std::array<char, ReceiveSize> _recvBuff;
         std::array<char, ReceiveSize> _remainedBuff;
         IPEndPoint _remoteEndPoint;
-        DWORD _readBytes = 0;
+        UINT16 _readBytes = 0;
         SOCKET _socket = INVALID_SOCKET;
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;

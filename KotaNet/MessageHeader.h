@@ -26,7 +26,12 @@ namespace Kota
     };
 
     #pragma pack(pop)
-    
+
+    inline bool InvalidHeader( const INT32 readSize )
+    {
+        return MessageHeader::headerSize >= readSize;
+    }
+
     struct MessageBase abstract : public ILogicTask
     {   
         virtual ~MessageBase() = default;
@@ -39,8 +44,4 @@ namespace Kota
         UINT16 id;
     };
 
-    inline bool InvalidHeader( const INT32 readSize )
-    {
-        return MessageHeader::headerSize >= readSize;
-    }
 }

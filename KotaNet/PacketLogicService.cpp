@@ -42,7 +42,7 @@ namespace Kota
         Utility::UniqueLock( _mutex, [this, pTask]()
         {
             _logicQueue.emplace( pTask );
-        } );
+        } );        
     }
 
     MessageBase* PacketLogicService::Clone( const MessageHeader* const pBase )

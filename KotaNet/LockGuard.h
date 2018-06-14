@@ -6,11 +6,11 @@ namespace Kota
 {
     namespace Utility
     {
-        /*template< class Mutex, class Fn >
-        inline auto UniqueLock( Mutex& mt, Fn&& fn )
+        /*template< class Fn, class... Args >
+        inline auto SharedLock( Fn&& fn, Args&&... args )
         {
-            const std::unique_lock<Mutex> lock( mt );
-            return fn();
+            const std::sha
+            return fn( args... );
         }*/
 
         template< class Mutex, class Fn, class... Args >

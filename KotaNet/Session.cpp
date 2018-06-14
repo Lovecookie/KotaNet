@@ -114,12 +114,11 @@ namespace Kota
         return true;
     }
 
-    bool Session::Recv( char* buf, ULONG len  )
+    bool Session::PostReceive()
     {
         WSABUF wsa;
-        wsa.buf = buf;
-        wsa.len = len;        
-        _readBytes = 0;
+        wsa.buf = nullptr;
+        wsa.len = 0;        
 
         DWORD readBytes = 0;
         DWORD flags = 0;
@@ -185,7 +184,7 @@ namespace Kota
 
         _remoteEndPoint.ConvertAddress( remoteAddr );        
         
-        if( !Recv( nullptr, 0 ) )
+        if( PostReceive() )
         {
             return false;
         }       
@@ -211,7 +210,7 @@ namespace Kota
 
             const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
             if( SOCKET_ERROR == result )
-            {
+            { 
                 const auto lastError = WSAGetLastError();
                 if( WSA_IO_PENDING != lastError )
                 {
@@ -262,57 +261,67 @@ namespace Kota
             return false;
         }
 
+        INT16 remainedMarker = 0;
+
         do
         {   
-            /*const auto recvSize = ::recv( _socket, nullptr, 0, MSG_PEEK );*/
-            const auto recvSize = ::recv( _socket, _remainedBuff.data() + _readBytes, ReceiveSize - _readBytes, 0 );
-            if( SOCKET_ERROR == recvSize )
+            const auto curRecvSize = ::recv( _socket, _remainedBuff.data() + _readBytes, ReceiveSize - _readBytes, 0 );
+            if( SOCKET_ERROR == curRecvSize )
             {
                 if( WSAEWOULDBLOCK != GetLastError() )
                 {
                     Console::Output( L"Session::_OnRecv() is error" );
                     Disconnect();
-
                     return false;
                 }
 
-                return Recv( nullptr, 0 );
+                return PostReceive();
             }
 
-            _readBytes += recvSize;
+            _readBytes += curRecvSize;
             if( InvalidHeader( _readBytes ) )
             {
                 continue;
             }
-
+            
             const auto pMsgHeader = reinterpret_cast<MessageHeader*>(_remainedBuff.data());
             if( pMsgHeader->IsInvalid( _readBytes ) )
             {
                 continue;
             }
 
+            remainedMarker = pMsgHeader->size;
             const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
 
             const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
-	    if( nullptr == pMessageBase )
-	    {
-		Console::Output( L"Session::_OnRecv() messageBase is null" );
-		Disconnect();
-		return false;
-	    }
+            if( nullptr == pMessageBase )
+            {
+                Console::Output( L"Session::_OnRecv() messageBase is null" );
+                Disconnect();
+                return false;
+            }
 
             _pPacketLogicService->EmplaceTask( pMessageBase );
 
             break;
         } while( true );
         
+        _readBytes -= remainedMarker;
+        if( _readBytes > 0 )
+        {
+            memmove_s( _remainedBuff.data(), ReceiveSize, _remainedBuff.data() + remainedMarker, _readBytes );            
+        }
+        else
+        {
+            _readBytes = 0;
+        }
 
-        return Recv( nullptr, 0 );
+        return PostReceive();
     }
 
     bool Session::_OnDisconnect( const DWORD bytesTransferred )
     {
-    	return Close();        
+    	return Close();
     }
 
 
