@@ -151,7 +151,6 @@
     <ClCompile Include="CppSerializer.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
-    <ClCompile Include="MessageHeader.cpp" />
     <ClCompile Include="NetAPI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInitialier.cpp" />
@@ -167,15 +166,18 @@
     <ClInclude Include="Iocp.h" />
     <ClInclude Include="IPEndPoint.h" />
     <ClInclude Include="ISerializer.h" />
+    <ClInclude Include="IService.h" />
     <ClInclude Include="LockGuard.h" />
     <ClInclude Include="MessageHeader.h" />
     <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="NetAPI.h" />
+    <ClInclude Include="NetAPIService.h" />
     <ClInclude Include="NetworkInitialier.h" />
     <ClInclude Include="OverlappedCallback.h" />
     <ClInclude Include="PacketLogicService.h" />
     <ClInclude Include="Provider.h" />
     <ClInclude Include="SampleDefine.h" />
+    <ClInclude Include="ServiceDictionary.h" />
     <ClInclude Include="Session.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

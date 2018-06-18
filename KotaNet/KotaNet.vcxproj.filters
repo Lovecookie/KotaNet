@@ -52,9 +52,6 @@
     <ClCompile Include="CppSerializer.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="MessageHeader.cpp">
-      <Filter>Packet</Filter>
-    </ClCompile>
     <ClCompile Include="PacketLogicService.cpp">
       <Filter>Service</Filter>
     </ClCompile>
@@ -107,6 +104,15 @@
     </ClInclude>
     <ClInclude Include="LockGuard.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="NetAPIService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="IService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceDictionary.h">
+      <Filter>Service</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
