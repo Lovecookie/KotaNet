@@ -187,7 +187,7 @@ namespace Kota
         if( PostReceive() )
         {
             return false;
-        }       
+        }
 
         return true;
     }
@@ -291,7 +291,7 @@ namespace Kota
             }
 
             remainedMarker = pMsgHeader->size;
-            const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
+			const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
 
             const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
             if( nullptr == pMessageBase )

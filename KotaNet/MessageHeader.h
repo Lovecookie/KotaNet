@@ -34,6 +34,10 @@ namespace Kota
 
     struct MessageBase abstract : public ILogicTask
     {   
+		MessageBase( UINT16 nID ) : id(nID)
+		{	
+		}
+
         virtual ~MessageBase() = default;
 
         virtual MessageBase* Clone() const = 0;

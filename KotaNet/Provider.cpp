@@ -1,6 +1,7 @@
 ﻿#include "Provider.h"
 #include "Acceptor.h"
 #include "PacketLogicService.h"
+#include "MessageDefine.h"
 
 namespace Kota
 {
@@ -8,27 +9,11 @@ namespace Kota
     {
     }
 
-    /*UINT32 Provider::GetConnectedCount()
-    {
-        return _connectedCount.load();
-    }
-
-    void Provider::IncreamentConnected()
-    {
-        _connectedCount.fetch_add( 1 );
-    }
-
-    void Provider::DecreamentConnected()
-    {
-        _connectedCount.fetch_sub( 1 );
-    }*/
-
     bool Provider::NetworkStart()
     {   
-        _pPacketLogicService = std::make_shared<PacketLogicService>();
+		_PacketInitialize();
 
-        _iocp.Initialize( 1, INFINITE );        
-
+        _iocp.Initialize( 1, INFINITE );
         IPEndPoint endPoint( "127.0.0.1", 50001 );
         endPoint.UseIP4();
 
@@ -50,7 +35,6 @@ namespace Kota
         ReadyAccept();
 
         _isRunning = true;
-
         return true;
     }
 
@@ -81,6 +65,12 @@ namespace Kota
             std::this_thread::sleep_for( std::chrono::milliseconds(100) );
         }
     }
+	
+	void Provider::_PacketInitialize()
+	{
+		_pPacketLogicService = std::make_shared<PacketLogicService>();
+		_pPacketLogicService->AddPacket( new MsgChat(), []( MessageBase* const pMsg ) {} );
+	}
 
 
 }

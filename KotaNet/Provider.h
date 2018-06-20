@@ -20,17 +20,16 @@ namespace Kota
         bool IsRunning()
         {
             return _isRunning;
-        }       
-
-        /*UINT32 GetConnectedCount();
-        void IncreamentConnected();
-        void DecreamentConnected();*/
+        }
 
         bool NetworkStart();
         void NetworkClose();
         void ReadyAccept();
 
         void Processing();
+
+	private:		
+		void _PacketInitialize();
 
     private:
         std::shared_ptr<Acceptor> _pAcceptor;
