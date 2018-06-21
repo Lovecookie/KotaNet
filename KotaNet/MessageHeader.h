@@ -42,7 +42,8 @@ namespace Kota
 
         virtual MessageBase* Clone() const = 0;
         virtual void Deserialize( const char* pBody ) = 0;
-        virtual void Serialize( const char* pBody ) = 0;
+        virtual void Serialize( OUT char* pBody ) = 0;
+		bool Process( MessageLogicService* const pLogicService ) override;
 
         UINT16 size;
         UINT16 id;

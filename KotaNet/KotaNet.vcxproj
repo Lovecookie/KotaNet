@@ -147,34 +147,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="ClientMessageProcessor.cpp" />
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="CppSerializer.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
+    <ClCompile Include="MessageHeader.cpp" />
     <ClCompile Include="NetAPI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInitialier.cpp" />
     <ClCompile Include="OverlappedCallback.cpp" />
-    <ClCompile Include="PacketLogicService.cpp" />
+    <ClCompile Include="MessageLogicService.cpp" />
     <ClCompile Include="Provider.cpp" />
     <ClCompile Include="Session.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="BaseLogicService.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="CppSerializer.h" />
     <ClInclude Include="Iocp.h" />
+    <ClInclude Include="IMessageProcessor.h" />
     <ClInclude Include="IPEndPoint.h" />
     <ClInclude Include="ISerializer.h" />
     <ClInclude Include="IService.h" />
     <ClInclude Include="LockGuard.h" />
     <ClInclude Include="MessageHeader.h" />
     <ClInclude Include="MessageDefine.h" />
+    <ClInclude Include="ClientMessageProcessor.h" />
     <ClInclude Include="NetAPI.h" />
     <ClInclude Include="NetAPIService.h" />
     <ClInclude Include="NetworkInitialier.h" />
     <ClInclude Include="OverlappedCallback.h" />
-    <ClInclude Include="PacketLogicService.h" />
+    <ClInclude Include="MessageLogicService.h" />
+    <ClInclude Include="PacketProcesser.h" />
     <ClInclude Include="Provider.h" />
     <ClInclude Include="SampleDefine.h" />
     <ClInclude Include="ServiceDictionary.h" />

@@ -49,11 +49,14 @@
     <ClCompile Include="NetAPI.cpp">
       <Filter>Kota</Filter>
     </ClCompile>
-    <ClCompile Include="CppSerializer.cpp">
+    <ClCompile Include="ClientMessageProcessor.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="PacketLogicService.cpp">
+    <ClCompile Include="MessageLogicService.cpp">
       <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageHeader.cpp">
+      <Filter>Packet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,9 +102,6 @@
     <ClInclude Include="MessageDefine.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="PacketLogicService.h">
-      <Filter>Service</Filter>
-    </ClInclude>
     <ClInclude Include="LockGuard.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -113,6 +113,21 @@
     </ClInclude>
     <ClInclude Include="ServiceDictionary.h">
       <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketProcesser.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessageProcessor.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientMessageProcessor.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageLogicService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLogicService.h">
+      <Filter>Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

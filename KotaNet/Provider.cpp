@@ -1,7 +1,8 @@
 ﻿#include "Provider.h"
 #include "Acceptor.h"
-#include "PacketLogicService.h"
+#include "MessageLogicService.h"
 #include "MessageDefine.h"
+#include "ClientMessageProcessor.h"
 
 namespace Kota
 {
@@ -50,7 +51,7 @@ namespace Kota
 
         for( auto index=0; index < 20; ++index )
         {
-            pSession = new Session( _pPacketLogicService.get() );
+            pSession = new Session( _pMessageLogicService.get() );
             pSession->Create();
             _iocp.Associate( pSession );
 
@@ -68,9 +69,7 @@ namespace Kota
 	
 	void Provider::_PacketInitialize()
 	{
-		_pPacketLogicService = std::make_shared<PacketLogicService>();
-		_pPacketLogicService->AddPacket( new MsgChat(), []( MessageBase* const pMsg ) {} );
+		_pMessageLogicService = std::make_shared<MessageLogicService>();
+		_pMessageLogicService->AddPacket( new MsgChat(), new ChatMsgProcessor() );
 	}
-
-
 }

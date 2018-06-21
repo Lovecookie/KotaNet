@@ -6,7 +6,7 @@
 namespace Kota
 {
     class Acceptor;
-    class PacketLogicService;
+    class MessageLogicService;
 
     /*
      * Provider의 역할을 변경할 예정
@@ -28,12 +28,13 @@ namespace Kota
 
         void Processing();
 
-	private:		
+	private:
+
 		void _PacketInitialize();
 
     private:
         std::shared_ptr<Acceptor> _pAcceptor;
-        std::shared_ptr<PacketLogicService> _pPacketLogicService;
+        std::shared_ptr<MessageLogicService> _pMessageLogicService;
         Iocp _iocp;
         std::atomic_uint32_t _connectedCount;
         bool _isRunning;

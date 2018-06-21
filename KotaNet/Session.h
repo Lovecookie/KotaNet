@@ -8,7 +8,7 @@ namespace Kota
 {
     struct MessageHeader;
     struct MessageBase;
-    class PacketLogicService;
+    class MessageLogicService;
     class ISerializer;
 
     __interface ISessionObject
@@ -27,7 +27,7 @@ namespace Kota
         static const INT32 SendSize = 1024;
 
     public:
-        Session( PacketLogicService* pService );
+        Session( MessageLogicService* pService );
         virtual ~Session();
 
         SOCKET GetSocket() const
@@ -71,7 +71,7 @@ namespace Kota
         std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
         bool _isZeroByte = true;
 
-	PacketLogicService* _pPacketLogicService;
+		MessageLogicService* _pLogicService;
 
     private:
         OverlappedCallback _accept;

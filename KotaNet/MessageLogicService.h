@@ -5,24 +5,26 @@
 namespace Kota
 {	
     __interface ILogicTask;
+	__interface IMessageProcessor;
     struct MessageHeader;
     struct MessageBase;
 
 
-    class PacketLogicService final : public IService
+    class MessageLogicService final : public IService
     {
     public:
-        using OnPacketFunc = std::function<void( MessageBase* const )>;
-        using ValueType = std::tuple<const MessageBase* const, OnPacketFunc>;
+        using OnPacketFunc = std::function<void( MessageBase* const )>;		
+        using ValueType = std::tuple<const MessageBase* const, const IMessageProcessor* const>;
         using TaskQueue = std::queue<ILogicTask*>;
 
     public:
         bool Initialize() override;
         void Finalize() override;
 
-        void AddPacket( const MessageBase* const pBase, OnPacketFunc&& func );
+        void AddPacket( const MessageBase* const pBase, const IMessageProcessor* const pProcessor );
         MessageBase* Clone( const MessageHeader* const pBase );
-        void EmplaceTask( ILogicTask* pTask );
+        void PushTask( ILogicTask* pTask );
+		const IMessageProcessor* FindMessageProcessor( UINT16 id );
         
         void Run();
 

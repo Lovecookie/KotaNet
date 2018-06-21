@@ -2,13 +2,13 @@
 #include "NetAPI.h"
 #include "Console.h"
 #include "MessageHeader.h"
-#include "PacketLogicService.h"
+#include "MessageLogicService.h"
 #include "CppSerializer.h"
 
 namespace Kota
 {   
-    Session::Session( PacketLogicService* pService )
-        : _pPacketLogicService( pService )
+    Session::Session( MessageLogicService* pService )
+        : _pLogicService( pService )
     {
         _accept.Bind( std::bind( &Session::_OnAccept, this, std::placeholders::_1 ) );
         _connect.Bind( std::bind( &Session::_OnConnect, this, std::placeholders::_1 ) );
@@ -153,7 +153,7 @@ namespace Kota
     
     MessageBase* Session::_DismantlePacket( const MessageHeader* pMsgBase, const char* pBody )
     {   
-        const auto pMessageBase = _pPacketLogicService->Clone( pMsgBase );
+        const auto pMessageBase = _pLogicService->Clone( pMsgBase );
         if( nullptr == pMessageBase )
         {
             return nullptr;
@@ -255,7 +255,7 @@ namespace Kota
 
     bool Session::_OnRecv( const DWORD bytesTransferred )
     {
-        if( nullptr == _pPacketLogicService )
+        if( nullptr == _pLogicService )
         {
             Disconnect();
             return false;
@@ -301,7 +301,7 @@ namespace Kota
                 return false;
             }
 
-            _pPacketLogicService->EmplaceTask( pMessageBase );
+			_pLogicService->PushTask( pMessageBase );
 
             break;
         } while( true );

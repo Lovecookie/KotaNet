@@ -9,15 +9,15 @@ namespace Kota
         ~CppSerializer() = default;
 
         template <typename T>
-        void Serialize( T* type, OUT const char* data ) const
+        void Serialize( T* type, OUT char* data ) const
         {
             ::memcpy( data, type, sizeof( T ) );
         }
 
         template <typename T>
-        T* Deserialize( const char* data ) const
+        const T* Deserialize( const char* data ) const
         {
-            return reinterpret_cast<T*>(data);
+            return reinterpret_cast<const T*>(data);
         }
     };
 }

@@ -29,7 +29,7 @@ namespace Kota
             memcpy( message.data(), pMsg->message.data(), sizeof( message ) );
         }
 
-        void Serialize( const char* pBody ) override
+        void Serialize( OUT char* pBody ) override
         {
             CppSerializer serializer;
             serializer.Serialize<MsgChat>( this, pBody );
