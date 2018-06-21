@@ -7,6 +7,6 @@ namespace Kota
 {
 	class ChatMsgProcessor final : public IMessageProcessor
 	{
-		bool DoWork( MessageBase* const pMsg ) const override;
+		bool DoWork( const MessageBase* const pMsg ) const override;
 	};
 }

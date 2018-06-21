@@ -3,6 +3,7 @@
 #include "MessageLogicService.h"
 #include "MessageDefine.h"
 #include "ClientMessageProcessor.h"
+#include "Console.h"
 
 namespace Kota
 {
@@ -61,6 +62,9 @@ namespace Kota
 
     void Provider::Processing()
     {
+
+		Console::Output( L"Waiting Connection user.." );
+		
         while( _isRunning )
         {   
             std::this_thread::sleep_for( std::chrono::milliseconds(100) );

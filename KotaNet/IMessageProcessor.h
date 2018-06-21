@@ -6,6 +6,6 @@ namespace Kota
 
 	__interface IMessageProcessor
 	{
-		bool DoWork( MessageBase* const pMsg ) const;
+		bool DoWork( const MessageBase* const pMsg ) const;
 	};
 }
