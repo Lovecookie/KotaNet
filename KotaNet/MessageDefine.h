@@ -12,7 +12,9 @@ namespace Kota
 
     struct MsgChat final : MessageBase
     {
-		MsgChat():MessageBase(static_cast<UINT16>(EMsgID::MsgChat))
+		MsgChat()
+			: MessageBase(static_cast<UINT16>(EMsgID::MsgChat))
+			, Msg { 0 }
 		{	
 		}
 
@@ -26,7 +28,7 @@ namespace Kota
             CppSerializer serializer;
             auto pMsg = serializer.Deserialize<MsgChat>( pBody );
             
-            memcpy( message.data(), pMsg->message.data(), sizeof( message ) );
+            memcpy( Msg.data(), pMsg->Msg.data(), sizeof( Msg ) );
         }
 
         void Serialize( OUT char* pBody ) override
@@ -35,6 +37,6 @@ namespace Kota
             serializer.Serialize<MsgChat>( this, pBody );
         }
 
-        std::array<char, 128> message;
+        std::array<char, 128> Msg;
     };
 }

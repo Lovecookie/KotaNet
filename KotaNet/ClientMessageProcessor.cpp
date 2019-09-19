@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ClientMessageProcessor.h"
 #include "MessageDefine.h"
 
@@ -9,7 +10,7 @@ namespace Kota
 	{
 		const auto pMessage = static_cast<const MsgChat*>( pMsg );
 				
-		std::cout << pMessage->message.data() << std::endl;
+		std::cout << pMessage->Msg.data() << std::endl;
 
 		return true;
 	}

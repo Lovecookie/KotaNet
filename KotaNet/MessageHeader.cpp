@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MessageHeader.h"
 #include "MessageLogicService.h"
 #include "IMessageProcessor.h"

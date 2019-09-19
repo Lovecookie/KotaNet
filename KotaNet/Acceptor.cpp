@@ -1,11 +1,13 @@
+#include "stdafx.h"
 #include "Acceptor.h"
 #include "Session.h"
 
 namespace Kota
 {   
     Acceptor::Acceptor( const IPEndPoint& endPoint )
-        :   _endPoint( endPoint ),
-            _session( nullptr )
+        : _endPoint( endPoint )
+		, _session( nullptr )
+		, _acceptBuff{ 0 }
     {   
     }
 

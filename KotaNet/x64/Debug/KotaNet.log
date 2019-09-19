@@ -1,16 +1,2 @@
-﻿  Provider.cpp
-  MessageHeader.cpp
-  ClientMessageProcessor.cpp
-  코드를 생성하고 있습니다...
-  건너뛰고 있습니다... (관련된 변경 내용 없음)
-  main.cpp
-  Session.cpp
-  OverlappedCallback.cpp
-  NetworkInitialier.cpp
-  NetAPI.cpp
-  MessageLogicService.cpp
-  Iocp.cpp
-  IPEndPoint.cpp
-  Acceptor.cpp
-  KotaNet.vcxproj -> C:\Users\BAEKSEUNGMIN\Desktop\포트폴리오\KotaNet\x64\Debug\KotaNet.exe
-  KotaNet.vcxproj -> C:\Users\BAEKSEUNGMIN\Desktop\포트폴리오\KotaNet\x64\Debug\KotaNet.pdb (Partial PDB)
+﻿  Session.cpp
+  KotaNet.vcxproj -> D:\KotaNet\KotaNet\x64\Debug\KotaNet.exe

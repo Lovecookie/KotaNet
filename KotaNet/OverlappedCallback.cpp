@@ -1,4 +1,5 @@
-﻿#include "OverlappedCallback.h"
+﻿#include "stdafx.h"
+#include "OverlappedCallback.h"
 
 namespace Kota
 {

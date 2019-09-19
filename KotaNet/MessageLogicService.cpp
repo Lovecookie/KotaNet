@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MessageLogicService.h"
 #include "MessageHeader.h"
 #include "LockGuard.h"

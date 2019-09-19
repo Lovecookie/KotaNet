@@ -1,4 +1,5 @@
-﻿#include "NetworkInitialier.h"
+﻿#include "stdafx.h"
+#include "NetworkInitialier.h"
 
 #include "SampleDefine.h"
 

@@ -129,5 +129,6 @@
     <ClInclude Include="BaseLogicService.h">
       <Filter>Packet</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
 </Project>

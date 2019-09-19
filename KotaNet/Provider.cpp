@@ -1,4 +1,5 @@
-﻿#include "Provider.h"
+﻿#include "stdafx.h"
+#include "Provider.h"
 #include "Acceptor.h"
 #include "MessageLogicService.h"
 #include "MessageDefine.h"
@@ -7,6 +8,11 @@
 
 namespace Kota
 {
+	Provider::Provider()
+		: _isRunning(false)
+	{
+	}
+
     Provider::~Provider()
     {
     }

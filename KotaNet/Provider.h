@@ -14,7 +14,7 @@ namespace Kota
     class Provider final 
     {
     public:
-        Provider() = default;
+        Provider();
         ~Provider();
 
         bool IsRunning()

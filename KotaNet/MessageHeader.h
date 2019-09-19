@@ -34,7 +34,9 @@ namespace Kota
 
     struct MessageBase abstract : public ILogicTask
     {   
-		MessageBase( UINT16 nID ) : id(nID)
+		MessageBase( UINT16 nID )
+			: id(nID)
+			, size(0)
 		{	
 		}
 

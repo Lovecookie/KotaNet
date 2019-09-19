@@ -1,4 +1,5 @@
-﻿#include "Console.h"
+﻿#include "stdafx.h"
+#include "Console.h"
 #include <iostream>
 
 namespace Kota
@@ -8,7 +9,7 @@ namespace Kota
         std::cout << str << std::endl;
     }
 
-    void Console::Output( std::string& str )
+    void Console::Output( const std::string& str )
     {
         std::cout << str << std::endl;
     }
@@ -17,5 +18,4 @@ namespace Kota
     {
         std::wcout << str << std::endl;
     }
-
 }

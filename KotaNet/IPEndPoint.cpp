@@ -1,4 +1,5 @@
-﻿#include "IPEndPoint.h"
+﻿#include "stdafx.h"
+#include "IPEndPoint.h"
 #include "Console.h"
 
 namespace Kota

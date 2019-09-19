@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "NetAPI.h"
 #include <iostream>
 #include "Console.h"
