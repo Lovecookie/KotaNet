@@ -54,7 +54,7 @@ namespace Kota
 
     protected:
         virtual SOCKET _CreateSocket();
-        MessageBase* _DismantlePacket( const MessageHeader* pMsgBase, const char* pBody );
+        MessageBase* _DeserializeMessage( const MessageHeader* pMsgBase, const char* pBody );
         bool _OnAccept( const DWORD bytesTransferred );
         bool _OnConnect( const DWORD bytesTransferred );
         bool _OnSend( const DWORD bytesTransferred );

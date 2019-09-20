@@ -9,7 +9,7 @@ namespace Kota
         static const DWORD AddrLength = sizeof( SOCKADDR_IN ) + 16;        
 
     public:        
-        IPEndPoint();        
+        IPEndPoint();
         explicit IPEndPoint( const std::string& ip, const UINT16 port );
         explicit IPEndPoint( const IPEndPoint& ep );
 

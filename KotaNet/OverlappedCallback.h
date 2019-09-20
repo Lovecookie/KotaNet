@@ -10,10 +10,7 @@ namespace Kota
     {
     public:
         OverlappedCallback();
-        explicit OverlappedCallback( OverlappedFunc&& func ) : _callback( std::move( func ) )
-        {
-            memset( static_cast<LPOVERLAPPED>(this), 0, sizeof( OVERLAPPED ) );
-        }
+		OverlappedCallback( OverlappedFunc&& func );
 
         ~OverlappedCallback() = default;
 

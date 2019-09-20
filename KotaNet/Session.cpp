@@ -32,9 +32,9 @@ namespace Kota
 		{
 			return false;
 		}
-
-		LPDWORD lpdword = NULL;
-		const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, lpdword, &_accept );
+		
+		DWORD outByteReceived = 0;
+		const auto result = AcceptEx( listenSession.GetSocket(), _socket, _addrBuff.data(), 0, IPEndPoint::AddrLength, IPEndPoint::AddrLength, &outByteReceived, &_accept );
 		if( result == FALSE )
 		{
 			const auto error = WSAGetLastError();
@@ -155,7 +155,7 @@ namespace Kota
 		return socket;
 	}
 
-	MessageBase* Session::_DismantlePacket( const MessageHeader* pMsgBase, const char* pBody )
+	MessageBase* Session::_DeserializeMessage( const MessageHeader* pMsgBase, const char* pBody )
 	{
 		const auto pMessageBase = _pLogicService->Clone( pMsgBase );
 		if( nullptr == pMessageBase )
@@ -297,7 +297,7 @@ namespace Kota
 			remainedMarker = pMsgHeader->size;
 			const auto pBody = _remainedBuff.data() + MessageHeader::headerSize;
 
-			const auto pMessageBase = _DismantlePacket( pMsgHeader, pBody );
+			const auto pMessageBase = _DeserializeMessage( pMsgHeader, pBody );
 			if( nullptr == pMessageBase )
 			{
 				Console::Output( L"Session::_OnRecv() messageBase is null" );

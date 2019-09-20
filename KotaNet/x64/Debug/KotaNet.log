@@ -1,2 +1,14 @@
-﻿  Session.cpp
+﻿  Acceptor.cpp
+  ClientMessageProcessor.cpp
+  Console.cpp
+  Iocp.cpp
+  IPEndPoint.cpp
+  MessageHeader.cpp
+  NetAPI.cpp
+  main.cpp
+  NetworkInitialier.cpp
+  OverlappedCallback.cpp
+  MessageLogicService.cpp
+  Provider.cpp
+  Session.cpp
   KotaNet.vcxproj -> D:\KotaNet\KotaNet\x64\Debug\KotaNet.exe

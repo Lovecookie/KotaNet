@@ -63,6 +63,7 @@ namespace Kota
         DWORD byteTransferred = 0;
         ULONG_PTR completionKey = 0;
         LPOVERLAPPED pOverlapped = nullptr;
+		/*auto threadId = std::this_thread::get_id();*/
 
         while( true )
         {

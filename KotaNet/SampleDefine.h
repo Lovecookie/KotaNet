@@ -18,6 +18,11 @@
 #include <wincon.h>
 #include <mutex>
 
+#include <string.h>
+#include <string_view>
+#include <memory.h>
+#include <utility>
+
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")
 

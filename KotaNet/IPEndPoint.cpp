@@ -8,21 +8,21 @@ namespace Kota
         :   _ip("127.0.0.1"),
             _port(0)
     {
-        ::memset( &_sockAddr, 0, sizeof( SOCKADDR_IN ) );
+		ZeroMemory( &_sockAddr, sizeof( SOCKADDR_IN ) );
     }
 
     IPEndPoint::IPEndPoint( const std::string& ip, const UINT16 port )
         : _ip( ip ),
         _port( port )
     {
-        ::memset( &_sockAddr, 0, sizeof( SOCKADDR_IN ) );
+		ZeroMemory( &_sockAddr, sizeof( SOCKADDR_IN ) );
     }
 
     IPEndPoint::IPEndPoint( const IPEndPoint& ep )
         :   _ip(ep._ip),
             _port(ep._port)
     {
-        ::memcpy( &_sockAddr, &ep._sockAddr, sizeof( SOCKADDR_IN ) );
+        ::memcpy( &_sockAddr, &ep._sockAddr, sizeof( SOCKADDR_IN ) );		
     }
 
     void IPEndPoint::ConvertAddress( const LPSOCKADDR sockAddr )
