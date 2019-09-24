@@ -21,30 +21,30 @@ namespace Kota
         return _fnDisconnectEx( socket, overlapped, TF_REUSE_SOCKET, 0 );        
     }
 
-    bool NetAPI::Linger( SOCKET socket, BOOL enable, UINT16 time )
+    bool NetAPI::Linger( SOCKET socket, bool enable, UINT16 time )
     {
         LINGER option;
-        option.l_onoff = enable == TRUE ? 1 : 0;
+        option.l_onoff = (enable ? 1 : 0);
         option.l_linger = time;
 
         return SOCKET_ERROR != setsockopt( socket, SOL_SOCKET, SO_LINGER, reinterpret_cast<const char*>(&option), sizeof( LINGER ) );
     }
 
-    bool NetAPI::NonBlocking( SOCKET socket, BOOL enable )
+    bool NetAPI::NonBlocking( SOCKET socket, bool enable )
     {
-        ULONG enableNonBlocking = enable;
+        ULONG enableNonBlocking = (enable ? 1 : 0);
         return SOCKET_ERROR != ioctlsocket( socket, FIONBIO, &enableNonBlocking ); 
     }
     
-    bool NetAPI::NoDelay( SOCKET socket, BOOL enable )
+    bool NetAPI::NoDelay( SOCKET socket, bool enable )
     {
-        INT32 noDelay = enable;
+        INT32 noDelay = (enable ? 1 : 0);
         return SOCKET_ERROR != ::setsockopt( socket, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<const char*>(&noDelay), sizeof( noDelay ) );
     }
 
-    bool NetAPI::ReuseAddr( SOCKET socket, BOOL enable )
+    bool NetAPI::ReuseAddr( SOCKET socket, bool enable )
     {
-        INT32 reuseAddr = enable;
+        INT32 reuseAddr = (enable ? 1 : 0);
         return SOCKET_ERROR != ::setsockopt( socket, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&reuseAddr), sizeof( reuseAddr ) );
     }
 

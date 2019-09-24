@@ -93,13 +93,12 @@ namespace Kota
 		return true;
 	}
 
-	bool Session::Send( std::tuple<char*, ULONG, ULONG>& buff )
+	bool Session::Send( TupleBuffer& buffer )
 	{
 		if( _sendQueue.empty() )
 		{
 			WSABUF wsa;
-			wsa.buf = std::get<0>( buff );
-			wsa.len = std::get<1>( buff );
+			buffer.MakeBuff( wsa );			
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )
@@ -113,7 +112,7 @@ namespace Kota
 			}
 		}
 
-		_sendQueue.push( buff );
+		_sendQueue.push( buffer );
 
 		return true;
 	}
@@ -148,9 +147,9 @@ namespace Kota
 			return INVALID_SOCKET;
 		}
 
-		NetAPI::NonBlocking( socket, TRUE );
-		NetAPI::NoDelay( socket, TRUE );
-		NetAPI::ReuseAddr( socket, TRUE );
+		NetAPI::NonBlocking( socket, true );
+		NetAPI::NoDelay( socket, true );
+		NetAPI::ReuseAddr( socket, true );
 
 		return socket;
 	}
@@ -203,14 +202,13 @@ namespace Kota
 
 	bool Session::_OnSend( const DWORD bytesTransferred )
 	{
-		auto& buff = _sendQueue.front();
-		std::get<2>( buff ) -= bytesTransferred;
+		auto buff = _sendQueue.front();
+		buff.DecrementLength( bytesTransferred );
 
-		if( 0 < std::get<2>( buff ) )
+		if( buff.IsRemained() )
 		{
 			WSABUF wsa;
-			wsa.buf = std::get<0>( buff ) + (std::get<1>( buff ) - std::get<2>( buff ));
-			wsa.len = std::get<2>( buff );
+			buff.MakeRemainedBuff( wsa );
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )
@@ -226,7 +224,7 @@ namespace Kota
 		}
 		else
 		{
-			delete std::get<0>( buff );
+			buff.ReleaseBuff(); //delete std::get<0>( buff );
 		}
 
 		if( _sendQueue.empty() )
@@ -237,11 +235,10 @@ namespace Kota
 
 		if( !_sendQueue.empty() )
 		{
-			const auto nextBuff = _sendQueue.front();
+			auto nextBuff = _sendQueue.front();
 
 			WSABUF wsa;
-			wsa.buf = std::get<0>( nextBuff );
-			wsa.len = std::get<1>( nextBuff );
+			nextBuff.MakeBuff( wsa );
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )

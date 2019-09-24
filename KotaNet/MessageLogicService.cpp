@@ -82,7 +82,7 @@ namespace Kota
 			return nullptr;
 		}
 
-		return std::get<1>( iter->second );		
+		return std::get<1>( iter->second );
 	}
 
     void MessageLogicService::Run()

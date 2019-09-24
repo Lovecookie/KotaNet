@@ -98,7 +98,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -160,6 +160,7 @@
     <ClCompile Include="MessageLogicService.cpp" />
     <ClCompile Include="Provider.cpp" />
     <ClCompile Include="Session.cpp" />
+    <ClCompile Include="TupleBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="ServiceDictionary.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TupleBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
