@@ -202,13 +202,13 @@ namespace Kota
 
 	bool Session::_OnSend( const DWORD bytesTransferred )
 	{
-		auto buff = _sendQueue.front();
-		buff.DecrementLength( bytesTransferred );
+		auto buffer = _sendQueue.front();
+		buffer.DecrementLength( bytesTransferred );
 
-		if( buff.IsRemained() )
+		if( buffer.IsRemained() )
 		{
 			WSABUF wsa;
-			buff.MakeRemainedBuff( wsa );
+			buffer.MakeRemainedBuff( wsa );
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )
@@ -224,7 +224,7 @@ namespace Kota
 		}
 		else
 		{
-			buff.ReleaseBuff(); //delete std::get<0>( buff );
+			buff.ReleaseBuff();
 		}
 
 		if( _sendQueue.empty() )
@@ -235,10 +235,10 @@ namespace Kota
 
 		if( !_sendQueue.empty() )
 		{
-			auto nextBuff = _sendQueue.front();
+			auto nextBuffer = _sendQueue.front();
 
 			WSABUF wsa;
-			nextBuff.MakeBuff( wsa );
+			nextBuffer.MakeBuff( wsa );
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )
