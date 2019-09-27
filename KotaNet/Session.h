@@ -3,6 +3,7 @@
 #include "SampleDefine.h"
 #include "OverlappedCallback.h"
 #include "IPEndPoint.h"
+#include "TupleBuffer.h"
 
 namespace Kota
 {
@@ -10,6 +11,7 @@ namespace Kota
     struct MessageBase;
     class MessageLogicService;
     class ISerializer;
+	//class TupleBuffer;
 
     __interface ISessionObject
     {
@@ -49,7 +51,7 @@ namespace Kota
         bool Close();
         bool Connect();
         bool Disconnect();
-        bool Send( std::tuple<char*, ULONG, ULONG>& buff );
+        bool Send( TupleBuffer& buff );
         bool PostReceive();
 
     protected:
@@ -64,11 +66,11 @@ namespace Kota
     protected:        
         std::array<char, 64> _addrBuff;
         std::array<char, ReceiveSize> _recvBuff;
-        std::array<char, ReceiveSize> _remainedBuff;
+        std::array<char, ReceiveSize> _remainedBuff;		
         IPEndPoint _remoteEndPoint;
         UINT16 _readBytes = 0;
         SOCKET _socket = INVALID_SOCKET;
-        std::queue<std::tuple<char*, ULONG, ULONG>> _sendQueue;
+        std::queue<TupleBuffer> _sendQueue;
         bool _isZeroByte = true;
 
 		MessageLogicService* _pLogicService;

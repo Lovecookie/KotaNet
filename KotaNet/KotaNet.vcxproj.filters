@@ -58,6 +58,9 @@
     <ClCompile Include="MessageHeader.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
+    <ClCompile Include="TupleBuffer.cpp">
+      <Filter>Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h">
@@ -130,5 +133,8 @@
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TupleBuffer.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
