@@ -66,7 +66,7 @@ namespace Kota
     protected:        
         std::array<char, 64> _addrBuff;
         std::array<char, ReceiveSize> _recvBuff;
-        std::array<char, ReceiveSize> _remainedBuff;		
+        std::array<char, ReceiveSize> _remainedBuff;
         IPEndPoint _remoteEndPoint;
         UINT16 _readBytes = 0;
         SOCKET _socket = INVALID_SOCKET;

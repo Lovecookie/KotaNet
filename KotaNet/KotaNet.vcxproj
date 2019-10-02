@@ -160,6 +160,7 @@
     <ClCompile Include="MessageLogicService.cpp" />
     <ClCompile Include="Provider.cpp" />
     <ClCompile Include="Session.cpp" />
+    <ClCompile Include="ThreadGroup.cpp" />
     <ClCompile Include="TupleBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="ISerializer.h" />
     <ClInclude Include="IService.h" />
     <ClInclude Include="LockGuard.h" />
+    <ClInclude Include="ThreadGroup.h" />
     <ClInclude Include="MessageHeader.h" />
     <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="ClientMessageProcessor.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TupleBuffer.h" />
+    <ClInclude Include="UnsafeByteArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

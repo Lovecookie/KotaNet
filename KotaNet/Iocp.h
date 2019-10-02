@@ -5,14 +5,15 @@
 namespace Kota
 {
     __interface ISessionObject;
+	class ThreadGroup;
 
     class Iocp
     {
     public:
-        Iocp() = default;
+        Iocp();
         virtual ~Iocp();
 
-        bool Initialize( const UINT32 numberOfWorker, const UINT32 timeout );
+        bool Initialize( const UINT32 workerCount, const UINT32 timeout );
         void Finalize();
         bool Associate( ISessionObject* const pObject );
         void ProcessIO();
@@ -21,7 +22,7 @@ namespace Kota
     private:
         HANDLE _iocp = INVALID_HANDLE_VALUE;
         std::atomic_uint32_t _nextWorkerID = 0;
-        DWORD _timeout = INFINITE;
-        std::list<std::thread> _workers;
+        DWORD _timeout = INFINITE;        
+		std::unique_ptr<ThreadGroup> _pWorkerGroup;
     };
 }

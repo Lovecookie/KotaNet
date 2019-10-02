@@ -2,47 +2,49 @@
 #include "Iocp.h"
 #include "Session.h"
 #include "OverlappedCallback.h"
+#include "ThreadGroup.h"
 
 namespace Kota
 {
+	Iocp::Iocp()
+		: _iocp( INVALID_HANDLE_VALUE )
+		, _nextWorkerID(0)
+		, _timeout(INFINITE)
+		, _pWorkerGroup(std::make_unique<ThreadGroup>())
+	{
+	}
+
     Iocp::~Iocp()
     {
         Finalize();
     }
 
-    bool Iocp::Initialize( const UINT32 numberOfWorker, const UINT32 timeout )
+    bool Iocp::Initialize( const UINT32 workerCount, const UINT32 timeout )
     {   
-        _iocp = CreateIoCompletionPort( INVALID_HANDLE_VALUE, 0, 0, numberOfWorker );
+        _iocp = CreateIoCompletionPort( INVALID_HANDLE_VALUE, 0, 0, workerCount );
         if( INVALID_HANDLE_VALUE == _iocp )
         {
             return false;
         }
 
         _timeout = timeout;
-        
-        for( UINT32 i = 0; numberOfWorker > i; ++i )
-        {
-            _workers.emplace_back( std::thread( std::bind( &Iocp::ProcessIO, this ) ) );
-        }
-        
+
+		for( UINT i = 0; i < workerCount; ++i )
+		{
+			_pWorkerGroup->Associate( std::bind( &Iocp::ProcessIO, this ) );
+		}
+
         return true;
     }
 
     void Iocp::Finalize()
     {
-        const auto begin = _workers.begin();
-        const auto end = _workers.end();
-        
-        for( auto iter = begin; iter != end; ++iter )
-        {
-            PostQueuedCompletionStatus( _iocp, 0, NULL, nullptr );
-        }
+		_pWorkerGroup->FuncAll( [io = _iocp]()
+		{
+			PostQueuedCompletionStatus( io, 0, 0, nullptr );
+		} );
 
-        for( auto iter = begin; iter != end; ++iter )
-        {
-            if( iter->joinable() )
-                iter->join();
-        }
+		_pWorkerGroup->JoinAll();
 
         if( INVALID_HANDLE_VALUE != _iocp )
         {
@@ -62,8 +64,7 @@ namespace Kota
         const auto currentWorkerId = ++_nextWorkerID;
         DWORD byteTransferred = 0;
         ULONG_PTR completionKey = 0;
-        LPOVERLAPPED pOverlapped = nullptr;
-		/*auto threadId = std::this_thread::get_id();*/
+        LPOVERLAPPED pOverlapped = nullptr;		
 
         while( true )
         {

@@ -98,7 +98,7 @@ namespace Kota
 		if( _sendQueue.empty() )
 		{
 			WSABUF wsa;
-			buffer.MakeBuff( wsa );			
+			buffer.MakeBuff( wsa );
 
 			const auto result = WSASend( _socket, &wsa, 1, nullptr, 0, &_send, nullptr );
 			if( SOCKET_ERROR == result )
@@ -224,7 +224,7 @@ namespace Kota
 		}
 		else
 		{
-			buff.ReleaseBuff();
+			buffer.ReleaseBuff();
 		}
 
 		if( _sendQueue.empty() )

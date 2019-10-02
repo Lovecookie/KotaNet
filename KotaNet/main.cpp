@@ -2,10 +2,11 @@
 #include <iostream>
 #include "Provider.h"
 #include "NetworkInitialier.h"
+#include "UnsafeByteArray.h"
 
 int main()
 {
-    Kota::NetworkInitializer initializer;
+    Kota::NetworkInitializer initializer;	
 
     Kota::Provider provider;
     provider.NetworkStart();

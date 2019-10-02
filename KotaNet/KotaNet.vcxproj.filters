@@ -17,6 +17,9 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{f68da2bb-668f-481d-82d2-e9e00e15ba81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{c33b4d97-fe8c-4058-9776-4efc7cdc47e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,6 +64,9 @@
     <ClCompile Include="TupleBuffer.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadGroup.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h">
@@ -99,9 +105,6 @@
     <ClInclude Include="CppSerializer.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="MessageHeader.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
     <ClInclude Include="MessageDefine.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -134,6 +137,15 @@
     </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TupleBuffer.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageHeader.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadGroup.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="UnsafeByteArray.h">
       <Filter>Packet</Filter>
     </ClInclude>
   </ItemGroup>
